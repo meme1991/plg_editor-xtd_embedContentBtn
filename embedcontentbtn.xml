@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="editors-xtd" method="upgrade">
+	<name>PLG_EDITORS-XTD_EMBEDCONTENTBTN</name>
+	<author>SPEDI srl</author>
+	<creationDate>Gennaio 2018</creationDate>
+  <copyright>Copyright (C) SPEDI srl</copyright>
+	<license>GNU/GPL license: http://www.gnu.org/copyleft/gpl.html</license>
+  <authorEmail>sviluppo@spedi.it</authorEmail>
+	<authorUrl>http://www.spedi.it</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_EDITORS-XTD_EMBEDCONTENTBTN_DESC</description>
+	<files>
+		<filename plugin="embedcontentbtn">embedcontentbtn.php</filename>
+		<filename>display.php</filename>
+		<folder>language</folder>
+		<folder>dist</folder>
+	</files>
+</extension>
