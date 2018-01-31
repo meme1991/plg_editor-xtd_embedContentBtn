@@ -3,7 +3,7 @@
 # @Date:   30-01-2018
 # @Email:  sviluppo@spedi.it
 # @Last modified by:   SPEDI srl
-# @Last modified time: 30-01-2018
+# @Last modified time: 31-01-2018
 # @License: GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
 # @Copyright: Copyright (c) SPEDI srl
 
@@ -41,10 +41,57 @@
         var overlay = document.getElementById("overlay").value;
         overlay = "|overlay="+overlay;
 
-        var tag = "{embedContent "+url+overlay+"}";
+        if(document.getElementById("overlay").value == 1){
+          // label
+          var label = document.getElementById("label").value;
+          label  = "|label="+label;
+          width  = "";
+          height = "";
+          align  = "";
+        }else{
+          // label
+          label = "";
+          // width
+          var width = document.getElementById("width").value;
+          width = "|width="+width;
+          // height
+          var height = document.getElementById("height").value;
+          height = "|height="+height;
+          // align
+          var align = document.getElementById("align").value;
+          align = "|align="+align;
+        }
+
+        var tag = "{embedContent "+url+overlay+label+width+height+align+"}";
 
         window.parent.jInsertEditorText(tag, '<?php echo $ih_name ?>');
         window.parent.jModalClose();
+       }
+
+       // funzione che testa i cambiamenti di template della galleria
+       function onChange(){
+        //var overlay = document.getElementById("overlay").value;
+        if(document.getElementById("overlay").value == 1){
+          document.getElementById("label-show").style.display = 'table-row';
+          document.getElementById("iframe-option-w").style.display = 'none';
+          document.getElementById("iframe-option-h").style.display = 'none';
+        }
+        else{
+          document.getElementById("label-show").style.display = 'none';
+          document.getElementById("iframe-option-w").style.display = 'table-row';
+          document.getElementById("iframe-option-h").style.display = 'table-row';
+        }
+       }
+
+       //
+       function onChangeWidth(){
+        var w = document.getElementById("width").value;
+        if(w != '100%'){
+          document.getElementById("align-option").style.display = 'table-row';
+        }
+        else{
+          document.getElementById("align-option").style.display = 'none';
+        }
        }
 
        function InsertHtmlDialogcancelClick() {
@@ -80,10 +127,33 @@
            <tr>
              <td><label for="overlay" class="col-form-label">Contenuto in overlay</label></td>
              <td>
-               <select class="form-control form-control-sm" name="overlay" id="overlay">
-                 <option value="0">NO</option>
+               <select class="form-control form-control-sm" name="overlay" id="overlay" onchange="onChange()">
+                 <option value="0" selected>NO</option>
                  <option value="1">SI</option>
                </select>
+             </td>
+           </tr>
+           <tr id="label-show" style="display:none;">
+             <td><label for="label" class="col-form-label">Etichetta link</label></td>
+             <td><input type="text" class="form-control form-control-sm" id="label" name="label"></td>
+           </tr>
+           <tr id="iframe-option-w">
+             <td><label for="width" class="col-form-label">Larghezza iframe</label></td>
+             <td><input type="text" class="form-control form-control-sm" id="width" name="width" value="100%" onchange="onChangeWidth()"></td>
+           </tr>
+           <tr id="iframe-option-h">
+             <td><label for="height" class="col-form-label">Altezza iframe</label></td>
+             <td><input type="text" class="form-control form-control-sm" id="height" name="height" value="450px"></td>
+           </tr>
+           <tr id="align-option" style="display:none;">
+             <td><label for="align" class="col-form-label">Allineamento</label></td>
+             <td>
+               <select class="form-control form-control-sm" name="align" id="align" >
+                 <option value="0" selected>NO</option>
+                 <option value="1">Sinistra</option>
+                 <option value="2">Destra</option>
+               </select>
+               <small id="alignHelp" class="form-text text-muted">Funziona solo con una larghezza diversa da 100%</small>
              </td>
            </tr>
          </table>
